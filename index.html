@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<title>simple notepad</title>
+
+<head>
+	<style>
+	textarea{
+		padding: 15px;
+    	background-color: yellow;
+    	box-shadow: 10px 10px 5px grey;
+    	color: black;
+    }
+	</style>
+	<body>
+		<script type="text/javascript">
+			
+			function fetchFromLocalstorage() {
+				// Check if "data" field is present or not in localstorage
+				if (!!localStorage.getItem("data")) {
+					document.getElementById('myText').innerHTML = localStorage.getItem("data");
+				}
+			}
+			function storeInLocalstorage() {
+				var data = document.getElementById('myText').value;
+				localStorage.setItem("data", data);
+			}
+			
+			function clearData() {
+				document.getElementById('myText').innerHTML = "";
+				localStorage.clear();
+			}
+
+			window.addEventListener('load', function() {
+			    // When dom is loaded, try to get saved data from localstorage
+			    fetchFromLocalstorage();
+
+			    setInterval(() => {
+			    	storeInLocalstorage()
+			    }, 3000); // 1000 = 1 sec
+			    document.getElementById('addNew').onclick = function() {myfunction()};
+			    function myfunction()
+			    {
+			    	 var d = document.createElement("TEXTAREA");
+			    	 document.body.appendChild(d);
+			    }
+			})
+
+		</script>
+		<textarea id="myText" cols="30" rows="10"></textarea>
+		<br>
+		<button type="button" onclick="clearData()">Reset</button>
+		<button type="button" onclick="storeInLocalstorage()">Save</button>
+		<button type="button" id="addNew">Add new area</button>
+	</body>
+</head>
